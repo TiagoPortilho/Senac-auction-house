@@ -5,7 +5,7 @@
 This project is part of the TDS Senac course activities and aims to apply software versioning concepts using git and GitHub.
 Using an auction house context
 
-### Tecnologias Utilizadas:
+### Technologies Used:
 
-Linguagem: Java
-Banco de Dados: MySQL
+language: Java
+Database: MySQL
