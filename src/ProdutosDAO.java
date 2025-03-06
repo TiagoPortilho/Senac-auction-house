@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -66,10 +67,33 @@ public class ProdutosDAO {
         
     }
     
-    public ArrayList<ProdutosDTO> listarProdutos(){
+   public ArrayList<ProdutosDTO> listarProdutos(){
+    ArrayList<ProdutosDTO> listagem = new ArrayList<>();
+    try {
+        connect();
         
-        return listagem;
+        
+        ResultSet rs = stm.executeQuery("SELECT * FROM produtos");
+        
+        
+        while (rs.next()) {
+            ProdutosDTO produto = new ProdutosDTO();
+            produto.setId(rs.getInt("ID"));
+            produto.setNome(rs.getString("NOME"));
+            produto.setValor(rs.getInt("VALOR"));
+            produto.setStatus(rs.getString("STATUS"));
+            listagem.add(produto);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(null, ex.getMessage());
+    } finally {
+        
+        desconnect();
     }
+    
+    return listagem;
+}
     
     
     
