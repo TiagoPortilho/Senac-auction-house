@@ -2,6 +2,8 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -17,17 +19,15 @@ import javax.swing.JOptionPane;
  */
 public class conectaDAO {
     
-    public Connection connectDB(){
-        Connection conn = null;
-        
+    public Connection getConnection() {
         try {
-        
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/uc11?user=root&password=");
-            
-        } catch (SQLException erro){
-            JOptionPane.showMessageDialog(null, "Erro ConectaDAO" + erro.getMessage());
+            Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost/auction_house", "root", "300807");
+            return conexao;
+        } catch (SQLException ex) {
+            Logger.getLogger(conectaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-        return conn;
+        return null;
     }
     
 }
