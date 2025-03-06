@@ -47,6 +47,24 @@ public class ProdutosDAO {
         }
     }
     
+    public void cadastrarProduto (ProdutosDTO p){
+        connect();
+    
+        try {
+            stm.execute("INSERT INTO produtos(nome, valor, status) VALUES('" 
+                + p.getNome() + "', " 
+                + p.getValor() + ", '" 
+                + p.getStatus() + "')");
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Não foi possível inserir os dados! Por favor, verifique os valores digitados! " 
+                + ex.getMessage());
+        } finally {
+            desconnect();
+        }
+        
+    }
+    
     public ArrayList<ProdutosDTO> listarProdutos(){
         
         return listagem;

@@ -21,7 +21,7 @@ public class conectaDAO {
     
     public Connection getConnection() {
         try {
-            Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost/auction_house", "root", "300807");
+            Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost/auction_house?useSSL=false", "root", "300807");
             return conexao;
         } catch (SQLException ex) {
             Logger.getLogger(conectaDAO.class.getName()).log(Level.SEVERE, null, ex);
