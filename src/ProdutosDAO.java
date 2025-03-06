@@ -55,6 +55,7 @@ public class ProdutosDAO {
                 + p.getNome() + "', " 
                 + p.getValor() + ", '" 
                 + p.getStatus() + "')");
+            JOptionPane.showMessageDialog(null, "Item cadastrado com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Não foi possível inserir os dados! Por favor, verifique os valores digitados! " 
