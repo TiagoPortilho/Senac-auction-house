@@ -9,6 +9,7 @@
  */
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -95,7 +96,28 @@ public class ProdutosDAO {
     return listagem;
 }
     
-    
+    public void venderProduto(int id) {
+        conectaDAO dbConnection = new conectaDAO();
+        Connection conexao = dbConnection.getConnection();
+
+        try {
+            String sql = "UPDATE produtos SET status = 'Vendido' WHERE id = ?";
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        } finally {
+            try {
+                if (conexao != null && !conexao.isClosed()) {
+                    conexao.close();
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        }
+    }
     
         
 }

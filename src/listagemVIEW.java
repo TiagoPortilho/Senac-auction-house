@@ -18,8 +18,19 @@ public class listagemVIEW extends javax.swing.JFrame {
      */
     public listagemVIEW() {
         initComponents();
-        listarProdutos();
+    this.addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                listarProdutos();
+            }
+
+        @Override
+        public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            listarProdutos();
+        }
+        });
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -140,7 +151,7 @@ public class listagemVIEW extends javax.swing.JFrame {
         
         ProdutosDAO produtosdao = new ProdutosDAO();
         
-        //produtosdao.venderProduto(Integer.parseInt(id));
+        produtosdao.venderProduto(Integer.parseInt(id));
         listarProdutos();
     }//GEN-LAST:event_btnVenderActionPerformed
 
