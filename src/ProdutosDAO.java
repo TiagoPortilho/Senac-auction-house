@@ -9,6 +9,7 @@
  */
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -95,7 +96,57 @@ public class ProdutosDAO {
     return listagem;
 }
     
+    public void venderProduto(int id) {
+        conectaDAO dbConnection = new conectaDAO();
+        Connection conexao = dbConnection.getConnection();
+
+        try {
+            String sql = "UPDATE produtos SET status = 'Vendido' WHERE id = ?";
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        } finally {
+            try {
+                if (conexao != null && !conexao.isClosed()) {
+                    conexao.close();
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        }
+    }
     
+    
+    public ArrayList<ProdutosDTO> listarVendidos(){
+    ArrayList<ProdutosDTO> listagem = new ArrayList<>();
+    try {
+        connect();
+        
+        
+        ResultSet rs = stm.executeQuery("SELECT * FROM produtos WHERE status = 'Vendido'");
+        
+        
+        while (rs.next()) {
+            ProdutosDTO produto = new ProdutosDTO();
+            produto.setId(rs.getInt("ID"));
+            produto.setNome(rs.getString("NOME"));
+            produto.setValor(rs.getInt("VALOR"));
+            produto.setStatus(rs.getString("STATUS"));
+            listagem.add(produto);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(null, ex.getMessage());
+    } finally {
+        
+        desconnect();
+    }
+    
+    return listagem;
+}
     
         
 }
